@@ -39,6 +39,7 @@
 <style lang='stylus' scoped>
     .contents
      margin-top 0.8 rem
+     padding-bottom 1rem
      overflow-x hidden  //防止顶部滚动
     .v-enter
      opacity: 0;

@@ -5,6 +5,8 @@ import Main from '@/components/contents/Main'
 import Member from '@/components/contents/Member'
 import Search from '@/components/contents/Search'
 import Shop from '@/components/contents/Shop'
+import NewsList from '@/components/news/NewsList'
+
 
 Vue.use(Router)
 
@@ -15,6 +17,7 @@ export default new Router({
       redirect:'/Main'
     },
 
+   
     { 
       path: '/',
       name: 'Home',
@@ -39,7 +42,12 @@ export default new Router({
           path: 'Shop',
           name: 'Shop',
           component: Shop
-        }
+        },
+        {
+          path:'Main/NewsList',
+          name:'NewsList',
+          component:NewsList
+        },
 
       ]
     }
