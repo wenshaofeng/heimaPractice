@@ -56,10 +56,13 @@ export default {
 }
 </script>
 <style lang="stylus"  scoped>
+    
     .Info>>> p
-        font-size .33rem       
+        font-size .33rem      
     .newsinfo-container
-        padding 0 0.3rem
+        padding 0.3rem 0.5rem
+        overflow hidden
+        background #fff
         .news-title
             font-size .4rem
             text-align center;
@@ -69,8 +72,11 @@ export default {
             font-size .3rem
             text-align center
             justify-content space-between 
-            display flex    
+            display flex   
+            color #226aff
+            padding-bottom 0.2rem
     .Info
         font-size .4rem
+        margin-bottom .3rem
             
 </style>
