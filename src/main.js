@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Header, Swipe, SwipeItem } from 'mint-ui'
+import { Header, Button} from 'mint-ui'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import '@/assets/lib/mui/css/mui.min.css'
@@ -11,14 +11,24 @@ import '@/assets/lib/mui/css/mui.min.css'
 import '@/assets/lib/mui/css/icons-extra.css'
 import './assets/lib/style/reset.css'
 import './assets/lib/style/border.css'
+// 导入格式化时间的插件
+import moment from 'moment'
+
+
+// 定义全局的过滤器
+Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+  return moment(dataStr).format(pattern)
+})
 
 Vue.component(Header.name, Header)
-Vue.component(Swipe.name, Swipe)
-Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(Button.name, Button)
+
 
 Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
+
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -12,19 +12,19 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/a': {
-        target: 'https://bing.ioliu.cn/v1', //设置你调用的接口域名和端口号 别忘了加http
+        target: 'https://bing.ioliu.cn/v1', 
         secure: false, 
         changeOrigin: true,
         pathRewrite: {
-          '^/api/a': '/'//这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+          '^/api/a': '/'
         }
       },
       '/api/b': {
-        target: 'http://www.liulongbin.top:3005/api', //设置你调用的接口域名和端口号 别忘了加http
+        target: 'http://www.liulongbin.top:3005/api', 
         secure: false, 
         changeOrigin: true,
         pathRewrite: {
-          '^/api/b': '/'//这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+          '^/api/b': '/'
         }
       }
     },

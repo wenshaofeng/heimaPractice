@@ -3,16 +3,16 @@
   <div> 
       <ul class="mui-table-view">
 				<li class="mui-table-view-cell mui-media"  v-for="item of list" :key="item.id">
-					<a href="javascript:;">
+					<router-link :to="'/Main/NewsList/NewsInfo/'+ item.id" >
 						<img class="mui-media-object mui-pull-left" :src="item.img_url">
 						<div class="mui-media-body">
 							{{item.title}}
-							<p class='mui-ellipsis'> 
-                  <span class="mui-ellipsis-left">发表时间 {{item.add_time}}</span>
+							<p class='mui-ellipsis'>                    
+                  <span class="mui-ellipsis-left">发表时间 {{item.add_time| dateFormat() }}</span>
                   <span class="mui-ellipsis-right">{{item.click}}</span> 
               </p>
 						</div>
-					</a>
+					</router-link>
 				</li>
 
 			</ul>
