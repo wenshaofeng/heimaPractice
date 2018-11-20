@@ -4,7 +4,7 @@
       <h1 class="news-title"> {{ news.title }} </h1>
          <p class="subtitle">
              <span class="postTime">  发表时间 {{news.add_time | dateFormat('YYYY-MM-DD')}}   </span>
-             <span class="click">   点击: {{news.click}}  </span>
+             <span class="click">   点击: {{news.click}} 次 </span>
          </p>  
         <hr>
 
@@ -14,7 +14,7 @@
 
         </div>
         <!-- 评论 -->
-        <comment-box> </comment-box>
+        <comment-box :id='this.id'> </comment-box>
         
   </div>
 
@@ -60,7 +60,7 @@ export default {
     .Info>>> p
         font-size .33rem      
     .newsinfo-container
-        padding 0.3rem 0.5rem
+        padding 0.3rem 0.3rem
         overflow hidden
         background #fff
         .news-title

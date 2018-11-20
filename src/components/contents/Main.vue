@@ -94,7 +94,6 @@ export default {
   height: 11rem;
   background #fff
   .wrapper
-    overflow: hidden;
     width: 100%;
     height: 0;
     padding-bottom: 56%;
