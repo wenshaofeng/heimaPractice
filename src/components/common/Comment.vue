@@ -4,11 +4,11 @@
       <h1 class="comment-title">发表评论</h1>
       <hr>
 
-      <textarea class="comment-input"  placeholder="请输入要BB的内容（做多吐槽120字）" maxlength="120" >
+      <textarea v-model="postCm" class="comment-input"  placeholder="请输入要BB的内容（做多吐槽120字）" maxlength="120" >
 
       </textarea>
 
-      <mt-button size="large" type="primary">发表评论</mt-button>
+      <mt-button size="large" type="primary" @click='postComment'>发表评论</mt-button>
 
       <div class="comments-cell" v-for="(item,index) of comments" :key="index">  
           <p class="comments-user">
@@ -35,7 +35,8 @@ export default {
   data(){
     return {
         comments : [] ,
-        pageIndex : 1
+        pageIndex : 1,
+        postCm : ''
     }
   },
   
@@ -59,7 +60,43 @@ export default {
       getMore() {
         this.pageIndex ++
         this.getcomments()
-      }
+      },
+      postComment() {
+          if(this.postCm === '')
+          {
+             return Toast('评论不能为空！！')
+          }
+         axios
+         .post('api/b/postcomment/'+this.id,{
+                content: this.postCm.trim()
+         } )
+         .then(res=>{
+             
+             var data = res.data 
+             if(data.status === 0){
+                    Toast   (
+                     {
+                      message: data.message,
+                      duration:1500,
+                      position:'top',
+                     }
+                )
+                var cmt = {
+                            user_name: "匿名用户",
+                            add_time: Date.now(),
+                            content: this.postCm.trim()
+                     };
+                    this.comments.unshift(cmt);
+                    this.postCm = "";
+             }
+             else {
+                 Toast("发表评论失败")
+             }
+              
+         })
+
+        
+      }  
 
   },
   mounted(){
@@ -68,46 +105,46 @@ export default {
 }
 </script>
 <style lang="stylus"  scoped>
-    .comment-title
-        font-size .4rem
-        font-weight bold
-    hr 
-        display block
-        unicode-bidi isolate
-        margin-block-start 0.5em
-        margin-block-end 0.5em
-        margin-inline-start auto
-        margin-inline-end auto
-        overflow hidden
-        border-style inset
-        border-width 1px 
-    .comment-input
-        line-height 21px
-        width 100%
-        height 2.4rem
-        margin-bottom 15px
-        padding 10px 15px
-        -webkit-user-select text
-        border 1px solid rgba(0,0,0,.2);
-        border-radius 3px
-        outline 0
-        background-color #fff;
-        -webkit-appearance none 
-        color #000
-    .comments-cell 
-        margin-top .1rem
-        .comments-user
-            font-size .24rem
+        .comment-title
+            font-size .4rem
             font-weight bold
+        hr 
+            display block
+            unicode-bidi isolate
+            margin-block-start 0.5em
+            margin-block-end 0.5em
+            margin-inline-start auto
+            margin-inline-end auto
+            overflow hidden
+            border-style inset
+            border-width 1px 
+        .comment-input
+            line-height 21px
+            width 100%
+            height 2.4rem
+            margin-bottom 15px
+            padding 10px 15px
+            -webkit-user-select text
+            border 1px solid rgba(0,0,0,.2);
+            border-radius 3px
+            outline 0
+            background-color #fff;
+            -webkit-appearance none 
             color #000
-            background #c8c7cc
-            line-height .6rem
-            padding-left .1rem
-            margin-bottom .05rem
-        .comments-info
-            text-indent .4rem 
-            line-height .5rem
-            font-size .3rem 
-            color #333  
+        .comments-cell 
+            margin-top .1rem
+            .comments-user
+                font-size .24rem
+                font-weight bold
+                color #000
+                background #c8c7cc
+                line-height .6rem
+                padding-left .1rem
+                margin-bottom .05rem
+            .comments-info
+                text-indent .4rem 
+                line-height .5rem
+                font-size .3rem 
+                color #333  
 
 </style>

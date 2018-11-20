@@ -1,26 +1,29 @@
 <template>
 
-  <div class="newsinfo-container"> 
-      <h1 class="news-title"> {{ news.title }} </h1>
-         <p class="subtitle">
+  <div class="newsinfo-container" ref='wrapper'> 
+      <div class="content">
+            <h1 class="news-title"> {{ news.title }} </h1>
+            <p class="subtitle">
              <span class="postTime">  发表时间 {{news.add_time | dateFormat('YYYY-MM-DD')}}   </span>
              <span class="click">   点击: {{news.click}} 次 </span>
-         </p>  
-        <hr>
+            </p>  
+            <hr>
 
         <!-- 新闻内容 -->
-        <div class="Info" v-html="news.content">
+            <div class="Info" v-html="news.content">
 
 
-        </div>
+            </div>
         <!-- 评论 -->
-        <comment-box :id='this.id'> </comment-box>
+            <comment-box :id='this.id'> </comment-box>
+      </div>
         
   </div>
 
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 import Comments from '../common/Comment'
 import axios from 'axios'
 export default {
@@ -48,9 +51,15 @@ export default {
              
           })
       }
+
   },
   mounted () {
+        this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.wrapper, {})
+        })
       this.getnewInfo()
+      
+
   }
   
 }
@@ -59,14 +68,21 @@ export default {
     
     .Info>>> p
         font-size .33rem      
+    .Info>>>img 
+        width 100%
+        margin .1rem   
     .newsinfo-container
-        padding 0.3rem 0.3rem
-        overflow hidden
+        position absolute
+        padding-top .5rem
+        padding-left .3rem
+        padding-right .3rem
         background #fff
+        height 12.6rem
         .news-title
             font-size .4rem
             text-align center;
-            margin .34rem 0;
+            margin-top .64rem
+            margin-bottom .34rem
             color red;
         .subtitle
             font-size .3rem
@@ -78,5 +94,5 @@ export default {
     .Info
         font-size .4rem
         margin-bottom .3rem
-            
+        
 </style>

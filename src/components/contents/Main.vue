@@ -21,9 +21,9 @@
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/Main/NewsList">
                 <img src="../../assets/lib/images/menu1.png" alt="">
                 <div class="mui-media-body">新闻资讯</div></router-link></li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/Main/Pictures">
                 <img src="../../assets/lib/images/menu2.png" alt="">
-                <div class="mui-media-body">图片分享</div></a></li>
+                <div class="mui-media-body">图片分享</div></router-link></li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
                 <img src="../../assets/lib/images/menu3.png" alt="">
                 <div class="mui-media-body">商品购买</div></a></li>
@@ -78,7 +78,7 @@ export default {
       var that = this.images;
       axios
         .post("api/a", {
-          d: Math.floor(100 * Math.random()),
+          d: Math.floor(200 * Math.random()),
           type: "json"
         })
         .then(res => {
@@ -91,7 +91,7 @@ export default {
 </script>
 <style lang="stylus"  rel="stylesheet/stylus"scoped>
 .content
-  height: 11rem;
+  height 100%
   background #fff
   .wrapper
     width: 100%;

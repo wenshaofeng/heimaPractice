@@ -2,14 +2,18 @@
 
     <div class="container"> 
         <!-- 顶部 Header 区域 -->
-         <mt-header fixed title="练手Vue项目"></mt-header>
+         <mt-header fixed title="练手Vue项目">
+              <router-link to="/" slot="left">
+              <mt-button icon="back">返回</mt-button>
+              </router-link>
+         </mt-header>
             <div class="contents">
                 <transition>
-                    <router-view></router-view>
-                </transition>          
+                    <router-view ></router-view>
+                </transition>      
              </div> 
 
-       
+
 
          <home-foot></home-foot>
 
@@ -40,7 +44,7 @@
 </script>
 <style lang='stylus' scoped>
     .contents
-        margin-top 0.8 rem
+        padding-top .8rem
         padding-bottom 1rem
         overflow-x hidden  //防止顶部滚动
         height 100%
@@ -54,6 +58,7 @@
     .v-enter-active,.v-leave-active
         transition: all 0.5s
 
+        
           
           
 

@@ -1,6 +1,6 @@
 <template>
 
-  <div >
+  <div class='newsContainer'>
     <ul class="mui-table-view">
       <li class="mui-table-view-cell mui-media"  v-for="item of list" :key="item.id">
         <router-link :to="'/Main/NewsList/NewsInfo/'+ item.id" >
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.mui-table-view-cell {
+  .mui-table-view-cell {
   background: #fff;
 
   .mui-pull-left {
@@ -66,4 +66,6 @@ export default {
     }
   }
 }
+
+
 </style>

@@ -7,6 +7,7 @@ import Search from '@/components/contents/Search'
 import Shop from '@/components/contents/Shop'
 import NewsList from '@/components/news/NewsList'
 import NewsInfo from '@/components/news/NewsInfo'
+import Pictures from '@/components/Pictures/Pictures'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
           path:'Main/NewsList/NewsInfo/:id',
           name:'NewsInfo',
           component:NewsInfo
+        },
+        {
+          path:'Main/Pictures',
+          name:'NewsList',
+          component:Pictures
         }
   
       ]
