@@ -68,7 +68,7 @@ export default {
           }
          axios
          .post('api/b/postcomment/'+this.id,{
-                content: this.postCm.trim()
+               
          } )
          .then(res=>{
              
@@ -105,46 +105,48 @@ export default {
 }
 </script>
 <style lang="stylus"  scoped>
-        .comment-title
-            font-size .4rem
+.Comments-container
+    padding-bottom 1rem
+    .comment-title
+        font-size .4rem
+        font-weight bold
+    hr 
+        display block
+        unicode-bidi isolate
+        margin-block-start 0.5em
+        margin-block-end 0.5em
+        margin-inline-start auto
+        margin-inline-end auto
+        overflow hidden
+        border-style inset
+        border-width 1px 
+    .comment-input
+        line-height 21px
+        width 100%
+        height 2.4rem
+        margin-bottom 15px
+        padding 10px 15px
+        -webkit-user-select text
+        border 1px solid rgba(0,0,0,.2);
+        border-radius 3px
+        outline 0
+        background-color #fff;
+        -webkit-appearance none 
+        color #000
+    .comments-cell 
+        margin-top .1rem
+        .comments-user
+            font-size .24rem
             font-weight bold
-        hr 
-            display block
-            unicode-bidi isolate
-            margin-block-start 0.5em
-            margin-block-end 0.5em
-            margin-inline-start auto
-            margin-inline-end auto
-            overflow hidden
-            border-style inset
-            border-width 1px 
-        .comment-input
-            line-height 21px
-            width 100%
-            height 2.4rem
-            margin-bottom 15px
-            padding 10px 15px
-            -webkit-user-select text
-            border 1px solid rgba(0,0,0,.2);
-            border-radius 3px
-            outline 0
-            background-color #fff;
-            -webkit-appearance none 
             color #000
-        .comments-cell 
-            margin-top .1rem
-            .comments-user
-                font-size .24rem
-                font-weight bold
-                color #000
-                background #c8c7cc
-                line-height .6rem
-                padding-left .1rem
-                margin-bottom .05rem
-            .comments-info
-                text-indent .4rem 
-                line-height .5rem
-                font-size .3rem 
-                color #333  
+            background #c8c7cc
+            line-height .6rem
+            padding-left .1rem
+            margin-bottom .05rem
+        .comments-info
+            text-indent .4rem 
+            line-height .5rem
+            font-size .3rem 
+            color #333  
 
 </style>

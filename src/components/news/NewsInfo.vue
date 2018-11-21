@@ -26,6 +26,7 @@
 import BScroll from 'better-scroll'
 import Comments from '../common/Comment'
 import axios from 'axios'
+import { setTimeout } from 'timers';
 export default {
   name:'NewsInfo',
   components:{  "commentBox": Comments  },
@@ -44,7 +45,7 @@ export default {
               if(res.data.status === 0 ){
                   let data = res.data.message
                   this.news=data[0] 
-                  console.log(this.news);
+                 
                        
               }         
               
@@ -54,9 +55,13 @@ export default {
 
   },
   mounted () {
-        this.$nextTick(() => {
-            this.scroll = new BScroll(this.$refs.wrapper, {})
+      this.$nextTick(() => {
+          setTimeout(()=>{
+                this.scroll = new BScroll(this.$refs.wrapper, {})
+          },200)
+            
         })
+       
       this.getnewInfo()
       
 
@@ -79,6 +84,7 @@ export default {
         background #fff
         height 12.6rem
         .news-title
+            padding-top .26rem
             font-size .4rem
             text-align center;
             margin-top .64rem

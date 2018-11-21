@@ -57,7 +57,8 @@
         position absolute           //内容部分平滑进入 
     .v-enter-active,.v-leave-active
         transition: all 0.5s
-
+    .mint-header
+        z-index 4
         
           
           
