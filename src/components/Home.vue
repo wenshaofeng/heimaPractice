@@ -2,18 +2,16 @@
 
     <div class="container"> 
         <!-- 顶部 Header 区域 -->
-         <mt-header fixed title="练手Vue项目">
-              <router-link to="/" slot="left">
-              <mt-button icon="back">返回</mt-button>
-              </router-link>
+         <mt-header   fixed title="练手Vue项目">
+              <div v-show="this.show" @click="goback" slot="left">
+                 <mt-button  icon="back">返回 </mt-button>
+              </div>
          </mt-header>
-            <div class="contents">
+            <div  class="contents">
                 <transition>
                     <router-view ></router-view>
                 </transition>      
              </div> 
-
-
 
          <home-foot></home-foot>
 
@@ -27,17 +25,29 @@
         name:'Home',
          data(){
             return {
-         
+                show:false
             }
          },
          components : {
             HomeFoot
          },
-         mounted() {
-             
-         }
+         methods :{
+             goback () {
+                
+                 this.$router.go(-1)
+             }
 
-        
+         },
+         watch: {
+              '$route.path':function(newV , oldV ){
+                  if (newV !=="/Main" ){
+                      this.show = true 
+                  }
+                  else {
+                      this.show = false
+                  }
+              }
+         }            
   }
       
 

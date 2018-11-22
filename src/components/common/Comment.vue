@@ -68,7 +68,7 @@ export default {
           }
          axios
          .post('api/b/postcomment/'+this.id,{
-               
+               content: this.postCm.trim()
          } )
          .then(res=>{
              

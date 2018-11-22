@@ -12,7 +12,6 @@
         <!-- 新闻内容 -->
             <div class="Info" v-html="news.content">
 
-
             </div>
         <!-- 评论 -->
             <comment-box :id='this.id'> </comment-box>
@@ -26,7 +25,6 @@
 import BScroll from 'better-scroll'
 import Comments from '../common/Comment'
 import axios from 'axios'
-import { setTimeout } from 'timers';
 export default {
   name:'NewsInfo',
   components:{  "commentBox": Comments  },
@@ -44,12 +42,9 @@ export default {
           .then(res=>{
               if(res.data.status === 0 ){
                   let data = res.data.message
-                  this.news=data[0] 
-                 
+                  this.news=data[0]            
                        
-              }         
-              
-             
+              }                            
           })
       }
 

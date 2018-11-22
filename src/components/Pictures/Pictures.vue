@@ -3,7 +3,7 @@
   <div class="PicContainer"> 
      
 		  <!-- 图片分类列表 -->
-      <div id="slider" class="mui-slider">
+     	<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll" >
 						<a :class="['mui-control-item' ,item.id===0?'mui-active':'']"  v-for="item of category" :key="item.id">
@@ -11,17 +11,22 @@
 						</a>
 					</div>
 				</div>
-			</div>
+		</div>
+
 			<!-- 图片列表 -->
-			<ul class="imagesList">
-				<li class='imageItem' v-for="item in images" :key="item.id">
-						<img v-lazy="item.img_url">
-						<div class="info">
-								<h1 class="info-title">{{ item.title }}</h1>
-								<div class="info-body">{{ item.zhaiyao }}</div>
-        		</div>
-				</li>
-			</ul>
+		<div class="wrapper" ref='wrapper'>
+				<ul class="imagesList">
+					<router-link :to="'/Main/Pictures/Info/'+item.id" tag="li"  class='imageItem' v-for="item in images" :key="item.id">
+							<img v-lazy="item.img_url">
+							<div class="info">
+									<h1 class="info-title">{{ item.title }}</h1>
+									<div class="info-body">{{ item.zhaiyao }}</div>
+							</div>
+					</router-link>
+				</ul>
+		</div>	
+
+	
 
   </div>
 
@@ -30,7 +35,7 @@
 <script>
 import axios from 'axios'
 import mui from '@/assets/lib/mui/js/mui.min.js'
-
+import BScroll from 'better-scroll'
 
 export default {
   name:'Pictures',
@@ -40,7 +45,8 @@ export default {
     return {
 			cateid: 0,
 			category : [],
-			images : []
+			images : [],
+		
     }
   },
   watch:{},
@@ -71,6 +77,8 @@ export default {
 					var data = res.data
 					if(data.status === 0) {
 						this.images = data.message
+						
+						
 					}
 					
 
@@ -91,6 +99,16 @@ export default {
 			scrollX: true
 		})
 				this.getImages(this.cateid)
+
+				this.$nextTick(() => {
+          setTimeout(()=>{
+                this.scroll = new BScroll(this.$refs.wrapper, {
+						click: true,
+						taps: true
+				})
+          },500)
+            
+        })
 	}
 }
 </script>
@@ -100,8 +118,9 @@ export default {
 		margin-top .2rem 
 		padding 0 .2rem
 		.imageItem
-			background #888
+			background #aaa
 			margin .1rem .1rem
+			box-shadow: 0 0 9px #999
 			position relative
 			.info
 				position absolute
@@ -121,14 +140,19 @@ export default {
 					line-height .35rem
 					
 			img
-				width 100% 
+				width:100%
+				height 100%
 				vertical-align middle
-	img[lazy=loading] 
+	img[lazy="loading"] >>>img
 		width: 40px
 		height: 300px
 		margin: auto
-		background #777
+		background #999
 	.PicContainer
 		background #fff
+		.wrapper
+			height 12.6rem
+		.mui-slider
+			background #fff	
 
 </style>
