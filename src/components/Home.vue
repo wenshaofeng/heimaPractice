@@ -47,7 +47,10 @@
                       this.show = false
                   }
               }
-         }            
+         },
+         created() {
+              this.show = this.$route.path === "/Main" ? false : true
+         },            
   }
       
 

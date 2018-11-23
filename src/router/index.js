@@ -10,6 +10,8 @@ import NewsInfo from '@/components/news/NewsInfo'
 import Pictures from '@/components/Pictures/Pictures'
 import PicturesInfo from '@/components/Pictures/PicturesInfo'
 import Goods from '@/components/goods/GoodsList'
+import GoodsInfo from '@/components/goods/GoodsInfo'
+
 Vue.use(Router)
 
 export default new Router({
@@ -68,11 +70,20 @@ export default new Router({
           name:'Goods',
           component:Goods
         },
+        {
+          path:'Main/Goods/GoodsInfo/:id',
+          name:'GoodsInfo',
+          component : GoodsInfo
+
+        }
   
   
       ]
     }
     
   ],
-  linkActiveClass: 'mui-active'                     
+  linkActiveClass: 'mui-active'   ,
+  scrollBehavior(to , from ,savedPosition){
+    return {x:0 ,y:0}
+  }                  
 })

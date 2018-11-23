@@ -1,7 +1,7 @@
 <template>
 
   <div class="goods-list"> 
-        <div class="goods-item" v-for="item in goodslist" :key="item.id">
+        <div class="goods-item" v-for="item in goodslist" :key="item.id" @click ='getInfo(item.id)'>
             <img :src="item.img_url" alt="">
             <h1 class="title">{{ item.title }}</h1>
             <div class="info">
@@ -15,6 +15,8 @@
                 </p>
             </div>
         </div>
+
+        <mt-button size="large" type="danger"  @click="getMore">加载更多</mt-button>
   </div>
 
 </template>
@@ -27,18 +29,32 @@ export default {
   props:{},
   data(){
     return {
-        goodslist:[]
+        goodslist:[],
+        pageindex : 1
     }
   },
   methods:{
       getGoodsList () {
-          axios.get('/api/b/getgoods?pageindex=1')
+          axios.get('/api/b/getgoods?pageindex='+this.pageindex)
           .then(res => {
                 var data = res.data 
-                this.goodslist = data.message              
+                
+                
+                this.goodslist = this.goodslist.concat(data.message)     
+                console.log(this.goodslist)         
           }).catch(err => {
              console.log(err);
              
+          })
+      },
+      getMore () {
+          this.pageindex++
+          this.getGoodsList() 
+      },
+      getInfo (id) {
+          this.$router.push({
+              name:'GoodsInfo',
+              params : { id }
           })
       }
 
