@@ -1,6 +1,13 @@
 <template>
 
   <div> 
+    <transition
+    >
+        <div class="ball" v-show='ballFlag' ref='ball'></div>  
+    </transition>
+    
+
+
       <!-- 轮播图 -->
     <div class="mui-card">
         <div class="mui-card-content">
@@ -31,7 +38,7 @@
           <p class="quantities">购买数量： <num-box></num-box></p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small" >加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click = 'addGoods'>加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -48,8 +55,8 @@
                 </div>
             </div>
             <div class="mui-card-footer">
-                <mt-button type="primary" size="large" plain> 图文介绍 </mt-button>
-                <mt-button type="danger" size="large" plain >商品评论</mt-button>
+                <mt-button type="primary" size="large" plain @click="ToDesc(id)"> 图文介绍 </mt-button>
+                <mt-button type="danger" size="large" plain @click="ToComment(id)"  >商品评论</mt-button>
             </div>
     </div> 
   </div>
@@ -77,7 +84,8 @@ export default {
             observer: true,
             observeParents: true,
             loop: true,
-        }
+        },
+        ballFlag : true 
     };
   },
   watch: {},
@@ -99,15 +107,39 @@ export default {
               
           })
 
+      },
+      ToDesc (id) {
+          this.$router.push({
+              name:'GoodsDesc',
+              params : { id }
+          })
+      },
+      ToComment (id) {
+          this.$router.push({
+              name:'GoodsComment',
+              params : { id }
+          })
+      },
+      addGoods () {
+          this.ballFlag = true 
+         
+           
       }
 
 
   },
   created() {
       this.getInfo()
-      this.getlunbo () 
+      this.getlunbo() 
+
+
   },
-  mounted() {}
+  mounted() {
+       console.log(this.$refs.ball)
+       const box = document.getElementsByClassName('mui-numbox-input')[0].getBoundingClientRect()
+       console.log(box);
+       
+  }
 };
 </script>
 <style lang="stylus"  scoped>
@@ -141,7 +173,12 @@ export default {
 .mui-card-content-inner p 
     margin 0.23rem 0
     font-size .25rem
-
-                   
+.ball 
+    background red 
+    position absolute
+    width 16px 
+    height 16px 
+    border-radius 50%
+    z-index 99               
 
 </style>

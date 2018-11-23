@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import mui from "../../assets/lib/mui/js/mui.min.js"
 export default {
   name:'numbox',
   components:{},
@@ -19,9 +20,15 @@ export default {
     return {
     }
   },
-  methods:{},
+  methods:{
+    
+  },
   created(){},
-  mounted(){}
+  mounted() {
+    // 初始化数字选择框组件
+    mui(".mui-numbox").numbox();
+    
+  }
 }
 </script>
 <style lang="stylus"  scoped>
