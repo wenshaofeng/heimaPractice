@@ -46,9 +46,7 @@ export default {
           .get('api/b/getcomments/'+this.id+'?pageindex='+this.pageIndex)
           .then(res=>{
               if(res.data.status ===0){
-                  var data = res.data
-                  console.log(data);
-                  
+                  var data = res.data               
                   this.comments = this.comments.concat(data.message)                 
               }else{
                   Toast('获取评论失败！')

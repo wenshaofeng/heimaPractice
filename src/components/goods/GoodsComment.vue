@@ -1,6 +1,6 @@
 <template>
 
-  <div> 
+  <div class='GoodsComments_container'> 
       <comment-box :id='id'></comment-box>
 
   </div>
@@ -22,4 +22,6 @@ export default {
 }
 </script>
 <style lang="stylus"  scoped>
+.GoodsComments_container
+  background #fff
 </style>

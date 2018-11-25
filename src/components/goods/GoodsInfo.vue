@@ -2,6 +2,9 @@
 
   <div> 
     <transition
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter">
     >
         <div class="ball" v-show='ballFlag' ref='ball'></div>  
     </transition>
@@ -35,7 +38,7 @@
           <p class="price">
             市场价：<del>￥{{ goodsInfos.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsInfos.sell_price }}</span>
           </p>
-          <p class="quantities">购买数量： <num-box></num-box></p>
+          <p class="quantities">购买数量： <num-box  :max ='goodsInfos.stock_quantity' @getCount='getSelectCount'></num-box></p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
             <mt-button type="danger" size="small" @click = 'addGoods'>加入购物车</mt-button>
@@ -85,7 +88,8 @@ export default {
             observeParents: true,
             loop: true,
         },
-        ballFlag : true 
+        ballFlag : false,
+        selectNum : 1
     };
   },
   watch: {},
@@ -121,23 +125,58 @@ export default {
           })
       },
       addGoods () {
-          this.ballFlag = true 
+        
+          this.ballFlag = !this.ballFlag
          
            
+      },
+      beforeEnter(el) {
+        
+        el.style.transform = "translate(0, 0)";
+      },
+      enter(el,done){
+          el.offsetWidth;
+        //   获取小球在页面中的位置
+        
+        const ballPosition = this.$refs.ball.getBoundingClientRect()
+        //   获取图标在页面中的位置
+        const badgePosition = document.getElementById('badge').getBoundingClientRect()
+        
+        const x = badgePosition.left - ballPosition.left
+        const y = badgePosition.top - ballPosition.top
+
+        el.style.transform = `translate(${x}px, ${y}px)`;
+        el.style.transition = "all 0.8s cubic-bezier(.4,-0.3,1,.68)";
+        done();
+            
+      },
+      afterEnter(el) {
+      this.ballFlag = false;
+      },
+      getSelectCount(count){
+          if(count <= this.goodsInfos.stock_quantity){
+                this.selectNum = count 
+          }
+          else this.selectNum = this.goodsInfos.stock_quantity
+         
+          console.log('父组件接收的值' + this.selectNum);
+          
       }
 
 
   },
   created() {
+    
       this.getInfo()
       this.getlunbo() 
 
 
   },
   mounted() {
-       console.log(this.$refs.ball)
-       const box = document.getElementsByClassName('mui-numbox-input')[0].getBoundingClientRect()
-       console.log(box);
+     
+      const box = document.getElementsByClassName('mui-numbox-input')[0].getBoundingClientRect()  
+       this.$refs.ball.style.left = (box.left+16) +'px' 
+       this.$refs.ball.style.top =(box.top+16)+scrollY +'px'  
        
   }
 };
