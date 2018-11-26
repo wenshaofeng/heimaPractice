@@ -72,9 +72,6 @@
         transition: all 0.5s
     .mint-header
         z-index 4
-        
-          
-          
-
+                        
 
 </style>

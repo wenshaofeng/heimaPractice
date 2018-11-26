@@ -1,6 +1,6 @@
 <template>
 
-  <div> 
+  <div class="goodsinfo-container"> 
     <transition
     @before-enter="beforeEnter"
     @enter="enter"
@@ -70,7 +70,7 @@
 import axios from 'axios' 
 import numBox from '@/components/common/GoodsInfo_numbox'
 export default {
-  name: "goodsInfoss",
+  name: "goodsInfo",
   components: {numBox},
   props: {},
   data() {
@@ -127,11 +127,24 @@ export default {
       addGoods () {
         
           this.ballFlag = !this.ballFlag
+          // 商品ID 数量 单价 选择状态
+
+          var goodsinfo = {
+              id : parseInt(this.id)  ,
+              count : this.selectNum,
+              price : this.goodsInfos.sell_price,
+              selected : true  
+          }
+          console.log(goodsinfo)
+          this.$store.commit('addToShopcar',goodsinfo)
+
          
            
       },
       beforeEnter(el) {
-        
+         var box = document.getElementsByClassName('mui-numbox-input')[0].getBoundingClientRect()  
+       this.$refs.ball.style.left = (box.left+16) +'px' 
+       this.$refs.ball.style.top =(box.top+16)+scrollY +'px'      
         el.style.transform = "translate(0, 0)";
       },
       enter(el,done){
@@ -151,15 +164,13 @@ export default {
             
       },
       afterEnter(el) {
-      this.ballFlag = false;
+      this.ballFlag = !this.ballFlag;
       },
       getSelectCount(count){
           if(count <= this.goodsInfos.stock_quantity){
                 this.selectNum = count 
           }
           else this.selectNum = this.goodsInfos.stock_quantity
-         
-          console.log('父组件接收的值' + this.selectNum);
           
       }
 
@@ -174,9 +185,6 @@ export default {
   },
   mounted() {
      
-      const box = document.getElementsByClassName('mui-numbox-input')[0].getBoundingClientRect()  
-       this.$refs.ball.style.left = (box.left+16) +'px' 
-       this.$refs.ball.style.top =(box.top+16)+scrollY +'px'  
        
   }
 };
@@ -218,6 +226,12 @@ export default {
     width 16px 
     height 16px 
     border-radius 50%
-    z-index 99               
+    z-index 99   
+    top: 380px
+    left: 152px
+.goodsinfo-container
+    background-color #eee
+    overflow hidden
+
 
 </style>

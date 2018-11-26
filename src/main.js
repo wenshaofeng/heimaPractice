@@ -14,13 +14,14 @@ import './assets/lib/style/border.css'
 import moment from 'moment'
 
 import MintUI from 'mint-ui'
-Vue.use(MintUI)
-import 'mint-ui/lib/style.css'
 
+import 'mint-ui/lib/style.css'
+import store from './store/index.js'
 import VuePreview from 'vue-preview'
 
-Vue.use(VuePreview)
 
+Vue.use(MintUI)
+Vue.use(VuePreview)
 // 定义全局的过滤器
 Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
   return moment(dataStr).format(pattern)
@@ -34,6 +35,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
