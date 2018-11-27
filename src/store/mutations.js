@@ -48,6 +48,18 @@ export default {
 
          //当购物车商品选择改变后，把car数组保存到 本地存储中
          localStorage.setItem('car',JSON.stringify(state.car))
+    },
+    //全选和全不选
+    ChangeAll(state,all) {
+        state.car.forEach(item=>{
+            item.selected = all
+
+        })
+        localStorage.setItem('car',JSON.stringify(state.car))
+    },
+    ClearCar(state) {
+        state.car = []
+        localStorage.setItem('car',JSON.stringify(state.car))
     }
 
     

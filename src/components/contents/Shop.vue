@@ -1,6 +1,18 @@
 <template>
 
   <div class="shopcar-container"> 
+        <div class="mui-card">
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner card-top">
+                    <mt-switch @change="SelectedAll" v-model='btnAll'>
+                        全选/全不选
+                    </mt-switch>  
+
+                    <mt-button size="small" type='primary' @click='ClearShopCar'>清空购物车</mt-button> 
+                </div> 
+            </div>
+        </div>
+
         <div class="goods-list">
           <!-- 每个商品列表项 -->
             <div class="mui-card" v-for="(item, index) in goodslist" :key="item.id">
@@ -55,14 +67,14 @@ export default {
   data(){
     return {
         goodslist : [],
-        
+        btnAll:true 
     }
   },
   created() {
       this.getGoodsList()
   },
   methods: {
-      getGoodsList () {
+      getGoodsList() {
           var idArr = [] 
           this.$store.state.car.forEach(element => {
               idArr.push(element.id )
@@ -80,7 +92,7 @@ export default {
       },
       deleteGoods(id,index){
           MessageBox.confirm('确认删除该商品吗？').then(action => {
-                this.goodslist.splice(index,1)
+                this.goodslist.splice(index,1) 
                 this.$store.commit('Delete',id)
                 Toast({
                     message: '删除成功',
@@ -96,6 +108,20 @@ export default {
               selected : val
           })
           
+      },
+      SelectedAll(){
+          this.$store.commit('ChangeAll',this.btnAll) 
+      },
+      ClearShopCar() {
+          MessageBox.confirm('确认清空购物车吗？').then(action => {
+                this.goodslist = []
+                this.$store.commit('ClearCar')
+                Toast({
+                    message: '已清空',
+                    position: 'middle',
+                    duration: 3000
+                    })
+        })
       }
           
 
@@ -107,6 +133,9 @@ export default {
 .shopcar-container 
     background-color: #eee
     overflow: hidden
+    .card-top
+        display flex
+        justify-content space-between
     .mui-card-content-inner
         display flex
         align-items center
