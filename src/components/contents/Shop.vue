@@ -1,13 +1,14 @@
 <template>
 
   <div class="shopcar-container"> 
-
         <div class="goods-list">
           <!-- 每个商品列表项 -->
             <div class="mui-card" v-for="(item, index) in goodslist" :key="item.id">
                 <div class="mui-card-content">
                     <div class="mui-card-content-inner">
-                        <mt-switch>
+                        <mt-switch
+                        v-model=" $store.getters.getGoodsSelected[item.id]"
+                        @change='SelectedChange(item.id,$store.getters.getGoodsSelected[item.id])'>
 
                         </mt-switch>
                         <img :src="item.thumb_path" alt="图片可能已丢失">
@@ -15,8 +16,11 @@
                             <h1>  {{item.title}} </h1>
                             <p>
                                 <span class="price"> ￥{{ item.sell_price }} </span> 
-                                <numbox>   </numbox>
-                                <a href="#">删除</a>
+                                <numbox :initCount= '$store.getters.getGoodsInitCount[item.id]'
+                                        :goodsid = 'item.id'
+                                >  
+                                </numbox>
+                                <a href="#" @click.prevent="deleteGoods(item.id,index)">删除  </a>
                             </p>    
                         </div>        
                     </div> 
@@ -29,7 +33,7 @@
                 <div class="mui-card-content-inner countAll">
                     <div class="left">
                         <p class="left-top">总计（不含运费）</p>
-                        <p>已勾选商品 <span class="red"></span> 件， 总价 <span class="red">￥</span></p>   
+                        <p>已勾选商品 <span class="red">{{$store.getters.getGoodsCountAndAmount.count}}</span>  件， 总价 <span class="red">￥ {{$store.getters.getGoodsCountAndAmount.amount}} </span></p>   
                     </div>   
                     <mt-button type="danger">去结算</mt-button>   
                 </div> 
@@ -41,6 +45,8 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui'
+import { MessageBox } from 'mint-ui'
 import axios from 'axios'
 import numbox from '../common/Shopcar_numbox'
 export default {
@@ -48,7 +54,8 @@ export default {
   components:{ numbox },
   data(){
     return {
-        goodslist : []
+        goodslist : [],
+        
     }
   },
   created() {
@@ -70,7 +77,28 @@ export default {
              if(res.data.status === 0) 
              this.goodslist = res.data.message
          })
+      },
+      deleteGoods(id,index){
+          MessageBox.confirm('确认删除该商品吗？').then(action => {
+                this.goodslist.splice(index,1)
+                this.$store.commit('Delete',id)
+                Toast({
+                    message: '删除成功',
+                    position: 'middle',
+                    duration: 3000
+                    })
+        });
+          
+      },
+      SelectedChange(id,val) {
+          this.$store.commit('ChangeSelected',{
+              id : id ,
+              selected : val
+          })
+          
       }
+          
+
   }
   
 }

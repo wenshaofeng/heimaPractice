@@ -130,7 +130,7 @@ export default {
           // 商品ID 数量 单价 选择状态
 
           var goodsinfo = {
-              id : parseInt(this.id)  ,
+              id : parseInt(this.id)   ,
               count : this.selectNum,
               price : this.goodsInfos.sell_price,
               selected : true  
@@ -159,7 +159,7 @@ export default {
         const y = badgePosition.top - ballPosition.top
 
         el.style.transform = `translate(${x}px, ${y}px)`;
-        el.style.transition = "all 0.8s cubic-bezier(.4,-0.3,1,.68)";
+        el.style.transition = "all 0.6s cubic-bezier(.4,-0.3,1,.68)";
         done();
             
       },
